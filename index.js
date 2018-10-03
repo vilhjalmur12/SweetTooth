@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const candyService = require("./services/CandyService");
+const pinataService = require("./services/PinataService");
 const port = 5500;
 
 const app = express();
@@ -52,10 +53,15 @@ app.post("/api/pinatas", (req, res) => {
 
 // PUT - hits a pinata by ID and therefore lowers score tolerance
 app.put("/api/pinatas/:id/hit", (req, res) => {
-    if(true) {
-        return res.status(200).send();
-    } else {
+    const resData = pinataService.hitPinataById(req.params.id);
+    if(resData === -1) {
+        return res.status(423).send();
+    } else if (resData === 0) {
+        return res.status(404).send();
+    } else if (resData === 1) {
         return res.status(204).send();
+    } else {
+        return res.json(resData);
     }
 });
 
