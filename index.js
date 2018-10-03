@@ -6,19 +6,28 @@ const port = 5500;
 
 const app = express();
 
+app.use(bodyParser.json());
+
 // GET - gets all candies
 app.get("/api/candies", (req, res) => {
-    return res.json();
+    return res.json(candyService.getAllCandies());
 });
 
 // POST - creates a new candy
 app.post("/api/candies", (req, res) => {
-    return res.json();
+    const body = req.body;
+    return res.status(201).json(candyService.createCandy(body));
 });
 
 // GET - gets a candy by ID
 app.get("/api/candies/:id", (req, res) => {
-    return res.json();
+    const result = candyService.getCandyById(req.params.id);
+
+    if (result === -1) {
+        return res.status(404).send();
+    }
+
+    return res.json(result);
 });
 
 // GET - gets all offers
