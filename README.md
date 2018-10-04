@@ -6,7 +6,7 @@ implemented using Express in NodeJS with JavaScript.
 
 ## To build
 Needs the newest NodeJs (https://nodejs.org/en/).  
-Needs npm init -y and nmp install --save express body-parser.  
+Needs npm init -y and npm install --save express body-parser.  
 To build and run node index.js  
 
 ## Team Members
