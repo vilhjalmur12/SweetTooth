@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 
 const candyService = require("./services/CandyService");
 const pinataService = require("./services/PinataService");
+const offerService = require("./services/OfferService");
 const port = 5500;
 
 const app = express();
@@ -33,22 +34,29 @@ app.get("/api/candies/:id", (req, res) => {
 
 // GET - gets all offers
 app.get("/api/offers", (req, res) => {
-    return res.json();
+  const result = offerService.getAllOffers();
+    return res.json(result);
 });
 
 // GET - gets all pinatas
 app.get("/api/pinatas", (req, res) => {
-    return res.json();
+    return res.json(pinataService.getAllPinatas());
 });
 
 // GET - gets pinata by ID
 app.get("/api/pinatas/:id", (req, res) => {
-    return res.json();
+  const result = pinataService.getPinataById(req.params.id);
+
+  if(result === -1) {
+    return res.status(404).send();
+  }
+    return res.json(result);
 });
 
 // POST - creates a new pinata
 app.post("/api/pinatas", (req, res) => {
-    return res.json();
+  const body = req.body;
+    return res.status(201).json(pinataService.createPinata(body));
 });
 
 // PUT - hits a pinata by ID and therefore lowers score tolerance
@@ -68,5 +76,5 @@ app.put("/api/pinatas/:id/hit", (req, res) => {
 
 // listens to port with factoral function
 app.listen(port, () => {
-    console.log("server is listening to port");
+    console.log("server is listening to port " + port);
 });

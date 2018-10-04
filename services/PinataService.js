@@ -4,16 +4,32 @@ const pinataData = require("../data/data").pinatas;
 pinataData.forEach(item => item.currentHits = 0);
 
 const PinataService = () => {
-    const getAllPinatas = () => {
+  //excluding surprise
+  const excludeSurprice = JSON.parse(JSON.stringify(pinataData))
+  excludeSurprice.forEach(i => {
+    delete i.surprise;
+  });
 
+    const getAllPinatas = () => {
+      const retValue = excludeSurprice;
+      return retValue;
     };
 
-    const getPinataById = () => {
-
+    const getPinataById = (id) => {
+      const retValue = excludeSurprice.filter(i => i.id == id)
+      if(retValue[0]) {
+        return retValue[0];
+      }
+      else {
+        return -1;
+      }
     };
 
     const createPinata = () => {
-
+      const id = pinataData[pinataData.length - 1].id + 1;
+      item.id = id;
+      pinataData.push(item);
+      return item;
     };
 
     const hitPinataById = (id) => {
