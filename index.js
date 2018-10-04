@@ -55,7 +55,7 @@ app.get("/api/pinatas/:id", (req, res) => {
 
 // POST - creates a new pinata
 app.post("/api/pinatas", (req, res) => {
-  const body = req.body;
+    const body = req.body;
     return res.status(201).json(pinataService.createPinata(body));
 });
 

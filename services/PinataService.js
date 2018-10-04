@@ -1,6 +1,6 @@
 const pinataData = require("../data/data").pinatas;
 
-// TODO: spyrja hvort það sé í lagi að initialize svona
+// initialize each pinata with currentHits = 0
 pinataData.forEach(item => item.currentHits = 0);
 
 const PinataService = () => {
@@ -25,7 +25,7 @@ const PinataService = () => {
       }
     };
 
-    const createPinata = () => {
+    const createPinata = (item) => {
       const id = pinataData[pinataData.length - 1].id + 1;
       item.id = id;
       pinataData.push(item);
